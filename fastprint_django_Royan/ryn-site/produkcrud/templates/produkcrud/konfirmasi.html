@@ -1,0 +1,16 @@
+{% extends 'layouts.html' %}
+
+{% block title %}
+    <title>Confirmation Page</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form class="jumbotron" method="post">
+            {% csrf_token %}
+            <h2>Yakin Menghapus Produk ?? </h2>
+            <input type="submit" value="YA" class="btn btn-danger">
+            <button class="btn btn-success"><a href="{% url 'showprod_url' %}">Tidak</a></button>
+        </form>
+    </div>
+{% endblock %}

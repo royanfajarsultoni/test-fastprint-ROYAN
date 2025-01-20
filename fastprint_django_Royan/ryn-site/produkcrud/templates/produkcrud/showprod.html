@@ -1,0 +1,35 @@
+{% extends 'layouts.html' %}
+
+{% block title %}
+   <title>Show Page</title>
+{% endblock %}
+
+{% block content %}
+<center><h1>Daftar Produk</h1></center>
+<table class="table">
+   <thead>
+     <tr>
+       <th scope="col">ID Produk</th>
+       <th scope="col">Nama Produk</th>
+       <th scope="col">Kategori Produk</th>
+       <th scope="col">Harga Produk</th>
+       <th scope="col">Status Produk</th>
+     </tr>
+   </thead>
+   <tbody>
+   {% for prod in obj %}
+     <tr>
+       <td>{{prod.id_produk}}</td>
+       <td>{{prod.nama_produk}}</td>
+       <td>{{prod.kategori_id}}</td>
+       <td>{{prod.harga}}</td>
+       <td>{{prod.status_id}}</td>
+       <td>
+           <button class="btn btn-warning"><a href="{% url 'update_prod_url' prod.id_produk %}">Update</a></button>&nbsp;&nbsp;
+           <button class="btn btn-danger"><a href="{% url 'delete_prod_url' prod.id_produk %}">Hapus</a></button>
+       </td>
+     </tr>
+   {% endfor %}
+   </tbody>
+ </table>
+{% endblock %}
