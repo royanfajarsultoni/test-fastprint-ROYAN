@@ -1,26 +1,31 @@
 {% extends 'layouts.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-   <title>Tambah Status</title>
+   <title>Edit Kategori</title>
 {% endblock %}
 
 {% block content %}
    <div class="containerteprod mt-5">
-      <center><h1 class="mb-4">Tambah Status</h1></center>
+      <center><h1 class="mb-4">Edit Kategori</h1></center>
       
       <div class="card shadow-lg border-light p-4">
-            <form method="post" id="statusForm">
+            <form method="post" id="editkategoriForm">
                {% csrf_token %}
-               <!-- {{ form|crispy }} -->
                <div class="mb-3">
-                  <center><p>Silakan isi status baru yang akan ditambahkan ke sistem.</p></center>
+                  <center><p>Silakan isi data kategori yang akan diedit ke sistem.</p></center>
                </div>
-               <!-- Input Fields with Icons -->
+               <!-- Tampilkan id_produk hanya sebagai teks, readonly -->
+               <div class="mb-3">
+                  <div class="input-group">
+                     <span class="input-group-text" style="background-color: #b5b5b5; border-right: 1px solid #ced4da;"><i class="fas fa-cogs"></i></span>
+                     <input type="text" class="form-control" value="{{ form.id_kategori.value }}" readonly>
+                  </div>
+               </div>
 
                <div class="mb-3">
                   <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-box"></i></span>
-                        {{ form.nama_status}}
+                        {{ form.nama_kategori}}
                   </div>
                </div>
 
@@ -30,11 +35,11 @@
                         <i class="fas fa-check"></i> Tambah Status
                   </button>
                </div>
-
             </form>
       </div>
    </div>
 
+   
 
 
 
@@ -42,13 +47,13 @@
    <!-- SweetAlert Success/Failure -->
    <script>
         // SweetAlert on successful form submission
-      const form = document.getElementById('statusForm');
+      const form = document.getElementById('editkategoriForm');
       form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
             // Display success message
             Swal.fire({
-               title: 'Status Ditambahkan!',
-               text: 'Status baru telah berhasil ditambahkan.',
+               title: 'Kategori Diedit!',
+               text: 'Kategori telah berhasil diedit.',
                icon: 'success',
                confirmButtonText: 'OK',
                backdrop: true,

@@ -1,5 +1,5 @@
 from django import forms
-from .models import produk, status
+from .models import produk, status,  kategori
 
 class produkForm(forms.ModelForm):
     class Meta:
@@ -20,8 +20,13 @@ class produkForm(forms.ModelForm):
         self.fields['status_id'].widget = forms.Select(attrs={'class': 'form-control'})
         self.fields['status_id'].queryset = status.objects.all()  # Mengambil data dari tabel status
         self.fields['status_id'].empty_label = "Pilih Status"  # Placeholder untuk dropdown
+
+        self.fields['kategori_id'].widget = forms.Select(attrs={'class': 'form-control'})
+        self.fields['kategori_id'].queryset = kategori.objects.all()  # Mengambil data dari tabel kategori
+        self.fields['kategori_id'].empty_label = "Pilih Kategori"  # Placeholder untuk dropdown
+
         self.fields['nama_produk'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Produk - cth. Laher Mobil'})
-        self.fields['kategori_id'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Kategori Produk - cth. Sparepart'})
+        #self.fields['kategori_id'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Kategori Produk - cth. Sparepart'})
         self.fields['harga'].widget = forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Harga Produk - cth. 10000'})
 
 
@@ -65,8 +70,13 @@ class editprodukForm(forms.ModelForm):
         self.fields['status_id'].widget = forms.Select(attrs={'class': 'form-control'})
         self.fields['status_id'].queryset = status.objects.all()  # Mengambil data dari tabel status
         self.fields['status_id'].empty_label = "Pilih Status"  # Placeholder untuk dropdown
+
+        self.fields['kategori_id'].widget = forms.Select(attrs={'class': 'form-control'})
+        self.fields['kategori_id'].queryset = kategori.objects.all()  # Mengambil data dari tabel kategori
+        self.fields['kategori_id'].empty_label = "Pilih Kategori"  # Placeholder untuk dropdown
+
         self.fields['nama_produk'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Produk - cth. Laher Mobil'})
-        self.fields['kategori_id'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Kategori Produk - cth. Sparepart'})
+        #self.fields['kategori_id'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Kategori Produk - cth. Sparepart'})
         self.fields['harga'].widget = forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Harga Produk - cth. 10000'})
 
 
@@ -120,11 +130,56 @@ class editstatusForm(forms.ModelForm):
             widget=forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
             initial=self.instance.id_status if self.instance else 'NONE'  # Menambahkan nilai ID produk
         )
-        self.fields['nama_status'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Status Baru'})
+        self.fields['nama_status'].widget = forms.TextInput(attrs={'class': 'form-control'})
 
 
         self.error_messages = {
             'nama_status' : {
-                'required' : 'Nama Produk harus diisi'
+                'required' : 'Nama Status harus diisi'
+            },
+        }
+
+
+class kategoriForm(forms.ModelForm):
+    class Meta:
+        model = kategori
+        fields = ['nama_kategori']
+        labels = {
+            'nama_kategori' : 'Nama Kategori' ,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nama_kategori'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Kategori Baru'})
+
+        self.error_messages = {
+            'nama_kategori' : {
+                'required' : 'Nama Kategori harus diisi'
+            },
+        }
+
+class editkategoriForm(forms.ModelForm):
+    class Meta:
+        model = kategori
+        fields = ['id_kategori','nama_kategori']
+
+        labels = {
+            'id_kategori' : 'ID Kategori',
+            'nama_kategori' : 'Nama Kategori' ,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['id_kategori'] = forms.CharField(
+            widget=forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
+            initial=self.instance.id_kategori if self.instance else 'NONE' 
+        )
+        self.fields['nama_kategori'].widget = forms.TextInput(attrs={'class': 'form-control'})
+
+
+        self.error_messages = {
+            'nama_kategori' : {
+                'required' : 'Nama Kategori harus diisi'
             },
         }

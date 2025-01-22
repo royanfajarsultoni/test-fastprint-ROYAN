@@ -1,0 +1,81 @@
+{% extends 'layouts.html' %}
+
+{% block title %}
+  <title>Show Page</title>
+{% endblock %}
+
+{% block content %}
+<center><h1 class="my-4">Daftar Kategori</h1></center>
+
+<div class="container">
+    <table class="table table-striped table-bordered shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID Kategori</th>
+                <th scope="col">Nama Kategori</th>
+                <th scope="col">aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ktgr in obj %}
+                <tr>
+                    <td>{{ktgr.id_kategori}}</td>
+                    <td>{{ktgr.nama_kategori}}</td>
+                    <td>
+                        <button class="btn btn-warning" id="updateBtn">
+                            <a href="{% url 'update_kategori_url' ktgr.id_kategori %}" class="text-white">Update</a>
+                        </button>&nbsp;&nbsp;
+                        <button class="btn btn-danger" id="deleteBtn" onclick="confirmDelete('{{ stts.id_kategori }}')">
+                            <a class="text-white">Hapus</a>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+// Function to confirm the delete action
+const deleteUrl = "{% url 'delete_kategori_url' 0 %}".replace('0', '');
+function confirmDelete(kategoriId) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Kategori ini akan dihapus!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal',
+        backdrop: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Kirim permintaan POST untuk menghapus produk
+            fetch(`/kategori_del/${statusId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': "{{ csrf_token }}",
+                }
+            }).then((response) => {
+                if (response.ok) {
+                    Swal.fire('Berhasil!', 'Kategori berhasil dihapus.', 'success')
+                        .then(() => location.reload());
+                } else {
+                    Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus kategori.', 'error');
+                }
+            });
+        }
+    });
+}
+
+    // Add hover effects to the button
+  const deleteBtn = document.getElementById('deleteBtn');
+  deleteBtn.addEventListener('mouseover', function() {
+        deleteBtn.classList.add('btn-lg', 'btn-outline-success');
+  });
+  deleteBtn.addEventListener('mouseout', function() {
+        deleteBtn.classList.remove('btn-outline-success');
+});
+</script>
+{% endblock %}

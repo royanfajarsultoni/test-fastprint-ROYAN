@@ -12,4 +12,9 @@ urlpatterns = [
     path('showstatusview/', views.showstatusView, name='showstatus_url'),
     path('status_update/<int:f_id_status>', views.updatestatusView, name= 'update_status_url'),
     path('status_del/<int:f_id_status>/', views.deletestatusView, name= 'delete_status_url'),
+
+    path('kategoriview/', views.kategoriFormView, name='kategori_url'),
+    path('showkategoriview/', views.showkategoriView, name='showkategori_url'),
+    path('kategori_update/<int:f_id_kategori>', views.updatekategoriView, name= 'update_kategori_url'),
+    path('kategori_del/<int:f_id_kategori>/', views.deletekategoriView, name= 'delete_kategori_url'),
 ]

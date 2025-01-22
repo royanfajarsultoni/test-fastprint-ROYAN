@@ -1,7 +1,7 @@
 {% extends 'layouts.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-   <title>Edit Produk</title>
+   <title>Edit Status</title>
 {% endblock %}
 
 {% block content %}
@@ -11,11 +11,9 @@
       <div class="card shadow-lg border-light p-4">
             <form method="post" id="editstatusForm">
                {% csrf_token %}
-               <!-- {{ form|crispy }} -->
                <div class="mb-3">
                   <center><p>Silakan isi data status yang akan diedit ke sistem.</p></center>
                </div>
-               <!-- Input Fields with Icons -->
                <!-- Tampilkan id_produk hanya sebagai teks, readonly -->
                <div class="mb-3">
                   <div class="input-group">

@@ -8,8 +8,14 @@ class produk(models.Model):
 
     id_produk = models.AutoField(primary_key=True)
     nama_produk = models.CharField(max_length=255)
-    kategori_id = models.CharField(max_length=255)
     harga = models.IntegerField()
+
+    kategori_id = models.ForeignKey(
+        'kategori',  # Model yang dijadikan relasi
+        on_delete=models.CASCADE,
+        db_column='kategori_id',  # Nama kolom di tabel database
+    )
+    
     status_id = models.ForeignKey(
         'status',  # Model yang dijadikan relasi
         on_delete=models.CASCADE,
@@ -18,6 +24,8 @@ class produk(models.Model):
 
 
 class kategori(models.Model):
+    def __str__(self):
+        return self.nama_kategori
 
     id_kategori = models.AutoField(primary_key=True)
     nama_kategori = models.CharField(max_length=255)
