@@ -1,7 +1,7 @@
 {% extends 'layouts.html' %}
 
 {% block title %}
-  <title>Show Page</title>
+<title>Show Page</title>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@
                         <button class="btn btn-warning" id="updateBtn">
                             <a href="{% url 'update_kategori_url' ktgr.id_kategori %}" class="text-white">Update</a>
                         </button>&nbsp;&nbsp;
-                        <button class="btn btn-danger" id="deleteBtn" onclick="confirmDelete('{{ stts.id_kategori }}')">
+                        <button class="btn btn-danger" id="deleteBtn" onclick="confirmDelete('{{ ktgr.id_kategori }}')">
                             <a class="text-white">Hapus</a>
                         </button>
                     </td>
@@ -52,7 +52,7 @@ function confirmDelete(kategoriId) {
     }).then((result) => {
         if (result.isConfirmed) {
             // Kirim permintaan POST untuk menghapus produk
-            fetch(`/kategori_del/${statusId}/`, {
+            fetch(`/kategori_del/${kategoriId}/`, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': "{{ csrf_token }}",

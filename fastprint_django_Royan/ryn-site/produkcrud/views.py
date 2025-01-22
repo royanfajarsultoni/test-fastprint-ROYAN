@@ -35,7 +35,7 @@ def updateView(request, f_id_produk):
     return render(request, template_name, context)
 
 def deleteView(request, f_id_produk):
-    obj = get_object_or_404(id_produk=f_id_produk)
+    obj = get_object_or_404(produk,id_produk=f_id_produk)
     if request.method == 'POST':
         obj.delete()
         return redirect('showprod_url')
