@@ -10,7 +10,7 @@
             {% csrf_token %}
             <h2>Yakin Menghapus Produk ?? </h2>
             <input type="submit" value="YA" class="btn btn-danger">
-            <button class="btn btn-success"><a href="{% url 'showprod_url' %}">Tidak</a></button>
+            <button class="btn btn-warning"><a href="{% url 'showprod_url' %}">Tidak</a></button>
         </form>
     </div>
 {% endblock %}

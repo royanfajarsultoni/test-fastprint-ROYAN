@@ -1,21 +1,28 @@
 {% extends 'layouts.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-   <title>Tambah Produk</title>
+   <title>Edit Produk</title>
 {% endblock %}
 
 {% block content %}
    <div class="containerteprod mt-5">
-      <center><h1 class="mb-4">Tambah Produk</h1></center>
+      <center><h1 class="mb-4">Edit Produk</h1></center>
       
       <div class="card shadow-lg border-light p-4">
-            <form method="post" id="produkForm">
+            <form method="post" id="editprodukForm">
                {% csrf_token %}
                <!-- {{ form|crispy }} -->
                <div class="mb-3">
-                  <center><p>Silakan isi data produk yang akan ditambahkan ke sistem.</p></center>
+                  <center><p>Silakan isi data produk yang akan diedit ke sistem.</p></center>
                </div>
                <!-- Input Fields with Icons -->
+               <!-- Tampilkan id_produk hanya sebagai teks, readonly -->
+               <div class="mb-3">
+                  <div class="input-group">
+                     <span class="input-group-text" style="background-color: #b5b5b5; border-right: 1px solid #ced4da;"><i class="fas fa-cogs"></i></span>
+                     <input type="text" class="form-control" value="{{ form.id_produk.value }}" readonly>
+                  </div>
+               </div>
 
                <div class="mb-3">
                   <div class="input-group">
@@ -40,8 +47,8 @@
 
                <div class="mb-3">
                   <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-check-circle"></i></span>
-                        {{ form.status_id}}
+                     <span class="input-group-text"><i class="fas fa-check-circle"></i></span>
+                     {{ form.status_id }}
                   </div>
                </div>
 
@@ -63,13 +70,13 @@
    <!-- SweetAlert Success/Failure -->
    <script>
         // SweetAlert on successful form submission
-      const form = document.getElementById('produkForm');
+      const form = document.getElementById('editprodukForm');
       form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
             // Display success message
             Swal.fire({
-               title: 'Produk Ditambahkan!',
-               text: 'Produk baru telah berhasil ditambahkan.',
+               title: 'Produk Diedit!',
+               text: 'Produk telah berhasil diedit.',
                icon: 'success',
                confirmButtonText: 'OK',
                backdrop: true,
