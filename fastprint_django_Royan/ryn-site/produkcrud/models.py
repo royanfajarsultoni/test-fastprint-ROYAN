@@ -19,7 +19,7 @@ class produk(models.Model):
 
 class kategori(models.Model):
 
-    id_kategori = models.IntegerField(primary_key=True)
+    id_kategori = models.AutoField(primary_key=True)
     nama_kategori = models.CharField(max_length=255)
     
     class Meta:
@@ -32,7 +32,7 @@ class status(models.Model):
     def __str__(self):
         return self.nama_status
     
-    id_status = models.IntegerField(primary_key=True)
+    id_status = models.AutoField(primary_key=True)
     nama_status = models.CharField(max_length=255)
     
     class Meta:

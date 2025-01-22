@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from .forms import produkForm, editprodukForm
+from .forms import produkForm, editprodukForm, statusForm, editstatusForm
 from .models import produk, status
 
-# Create your views here.
+# Produk views here.
 def produkFormView(request):
     form = produkForm()
     if request.method == 'POST':
@@ -40,4 +40,45 @@ def deleteView(request, f_id_produk):
         obj.delete()
         return redirect('showprod_url')
     context = {'obj': obj}
+    return render(request, context)
+
+
+# Status views here.
+def statusFormView(request):
+    form = statusForm()
+    if request.method == 'POST':
+        form = statusForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('showstatus_url')
+    template_name = 'produkcrud/status.html'
+    context = {'form': form}
     return render(request, template_name, context)
+
+def showstatusView(request):
+    obj = status.objects.all()
+    template_name = 'produkcrud/showstatus.html'
+    context = {'obj': obj}
+    return render(request, template_name, context)
+
+def updatestatusView(request, f_id_status):
+    obj =  get_object_or_404(status,id_status=f_id_status)
+    form = editstatusForm(instance=obj)
+    if request.method == 'POST':
+        post_data = request.POST.copy()
+        post_data['id_status'] = obj.id_status
+        form = statusForm(post_data, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect('showstatus_url')
+    template_name = 'produkcrud/editstatus.html'
+    context = {'form': form}
+    return render(request, template_name, context)
+
+def deletestatusView(request, f_id_status):
+    obj = get_object_or_404(status,id_status=f_id_status)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('showstatus_url')
+    context = {'obj': obj}
+    return render(request, context)

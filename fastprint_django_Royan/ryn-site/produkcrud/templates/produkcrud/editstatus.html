@@ -1,0 +1,76 @@
+{% extends 'layouts.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+   <title>Edit Produk</title>
+{% endblock %}
+
+{% block content %}
+   <div class="containerteprod mt-5">
+      <center><h1 class="mb-4">Edit Status</h1></center>
+      
+      <div class="card shadow-lg border-light p-4">
+            <form method="post" id="editstatusForm">
+               {% csrf_token %}
+               <!-- {{ form|crispy }} -->
+               <div class="mb-3">
+                  <center><p>Silakan isi data status yang akan diedit ke sistem.</p></center>
+               </div>
+               <!-- Input Fields with Icons -->
+               <!-- Tampilkan id_produk hanya sebagai teks, readonly -->
+               <div class="mb-3">
+                  <div class="input-group">
+                     <span class="input-group-text" style="background-color: #b5b5b5; border-right: 1px solid #ced4da;"><i class="fas fa-cogs"></i></span>
+                     <input type="text" class="form-control" value="{{ form.id_status.value }}" readonly>
+                  </div>
+               </div>
+
+               <div class="mb-3">
+                  <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-box"></i></span>
+                        {{ form.nama_status}}
+                  </div>
+               </div>
+
+               <!-- Submit button -->
+               <div class="d-flex justify-content-center mt-4">
+                  <button type="submit" class="btn btn-success btn-lg px-5" id="submitBtn">
+                        <i class="fas fa-check"></i> Tambah Status
+                  </button>
+               </div>
+            </form>
+      </div>
+   </div>
+
+   
+
+
+
+   
+   <!-- SweetAlert Success/Failure -->
+   <script>
+        // SweetAlert on successful form submission
+      const form = document.getElementById('editstatusForm');
+      form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            // Display success message
+            Swal.fire({
+               title: 'Status Diedit!',
+               text: 'Status telah berhasil diedit.',
+               icon: 'success',
+               confirmButtonText: 'OK',
+               backdrop: true,
+            }).then(() => {
+                form.submit(); // Submit the form after showing the SweetAlert
+            });
+      });
+
+        // Add hover effects to the button
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.addEventListener('mouseover', function() {
+            submitBtn.classList.add('btn-lg', 'btn-outline-success');
+      });
+      submitBtn.addEventListener('mouseout', function() {
+            submitBtn.classList.remove('btn-outline-success');
+      });
+   </script>
+{% endblock %}

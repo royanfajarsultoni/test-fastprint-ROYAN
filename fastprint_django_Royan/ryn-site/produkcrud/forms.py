@@ -84,3 +84,47 @@ class editprodukForm(forms.ModelForm):
                 'required' : 'Status Produk harus diisi'
             }
         }
+
+class statusForm(forms.ModelForm):
+    class Meta:
+        model = status
+        fields = ['nama_status']
+        labels = {
+            'nama_status' : 'Nama Status' ,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nama_status'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Status Baru'})
+
+        self.error_messages = {
+            'nama_status' : {
+                'required' : 'Nama Status harus diisi'
+            },
+        }
+
+class editstatusForm(forms.ModelForm):
+    class Meta:
+        model = status
+        fields = ['id_status','nama_status']
+
+        labels = {
+            'id_status' : 'ID Status',
+            'nama_status' : 'Nama Status' ,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['id_status'] = forms.CharField(
+            widget=forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
+            initial=self.instance.id_status if self.instance else 'NONE'  # Menambahkan nilai ID produk
+        )
+        self.fields['nama_status'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Status Baru'})
+
+
+        self.error_messages = {
+            'nama_status' : {
+                'required' : 'Nama Produk harus diisi'
+            },
+        }
